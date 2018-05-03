@@ -63,6 +63,12 @@ a:hover {
   color: #00897f;
 }
 
+#teachers {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .teacher {
   width: 400px;
   min-height: 200px;
@@ -72,6 +78,10 @@ a:hover {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+}
+
+.teacher:nth-of-type(2) {
+  /* display: none; */
 }
 
 .teacher-details {
