@@ -1,7 +1,9 @@
 /* Colors:
-black: #323232
 teal: #00897f
-light gray: #eeeeee
+gray: #eeeeee
+turquoise: #5da3bc
+green: #a5b5a3
+blue: #657fca
 */
 * {
   margin: 0;
@@ -76,7 +78,7 @@ a:hover {
   min-height: 200px;
   margin: 20px;
   background-color: #eeeeee;
-  border: 3px solid #5DA3BC;
+  border: 3px solid #5da3bc;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -100,7 +102,7 @@ a:hover {
   flex-grow: 1;
 }
 
-.courses {
+.teacher-courses {
   padding: 20px;
   border-right: 1px solid #000;
   flex-grow: 1;
@@ -201,9 +203,10 @@ a:hover {
 
 #courses {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  margin: 10px 20px;
 }
 
 .course {
@@ -211,7 +214,7 @@ a:hover {
   min-height: 150px;
   margin: 20px;
   background-color: #eeeeee;
-  border: 3px solid #657FCA;
+  border: 3px solid #657fca;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
