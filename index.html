@@ -14,12 +14,12 @@
   <nav>
     <h1>CG Education</h1>
     <ul id="top-menu">
-      <li><a href="#teachers">TEACHERS</a></li>
-      <li><a href="#students">STUDENTS</a></li>
-      <li><a href="#courses">COURSES</a></li>
+      <li><a href="#teachers" class="link" onclick="openSection(event, 'teachers')">TEACHERS</a></li>
+      <li><a href="#students" class="link" onclick="openSection(event, 'students')">STUDENTS</a></li>
+      <li><a href="#courses" class="link" onclick="openSection(event, 'courses')">COURSES</a></li>
     </ul>
   </nav>
-  <div id="teachers">
+  <div id="teachers" class="sectionContent">
 
     <div class="teacher">
       <div class="teacher-details">
@@ -147,7 +147,7 @@
     </div>
   </div>
 
-  <div id="students">
+  <div id="students" class="sectionContent">
     <div class="student">
       <div class="student-details">
         <img class="student-photo" src="images/CharlieBrown.png">
@@ -295,7 +295,7 @@
     </div>
   </div>
 
-  <div id="courses">
+  <div id="courses" class="sectionContent">
     <div class="course">
       <div class="course-details">
         <h2 class="department">Physics</h2>
