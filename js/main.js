@@ -16,12 +16,12 @@ var teacher = "Sally Brown";
 var dept = "Physics";
 var ratings = [3.4, 5.0, 4.2];
 
-function calculateAverageRating(ratings) {
+function getAverageRating(ratings) {
   var sum = 0;
   for (var i = 0; i < ratings.length; i++) {
     sum += ratings[i];
   }
-  return sum / ratings.length;
+  return (sum / ratings.length).toFixed(1);
 }
 
 function formatRatingsList(ratings) {
@@ -35,11 +35,32 @@ function formatRatingsList(ratings) {
   return list;
 }
 
-var avgRating = calculateAverageRating(ratings).toFixed(1);
+function addTeacherRating(ratings, newRating) {
+  ratings.push(newRating);
+  return ratings;
+}
+
+function promptForUserReview(teacher, ratings) {
+  var validRating = false;
+
+  while(!validRating) {
+    result = window.prompt("We would like for you to review . Please enter a rating between 0.0 - 5.0?");
+    if(result && !isNaN(result) && result >= 0 && result <= 5) {
+      rating = Number(result);
+      validRating = true;
+      addTeacherRating(ratings, rating);
+      alert("Thanks for your review! " + teacher + "'s average rating is now " + getAverageRating(ratings)+ ".")
+    }
+  }
+}
+
+var avgRating = getAverageRating(ratings);
 console.log("Teacher: " + teacher);
 console.log("Department: " + dept);
 console.log("Ratings: " + formatRatingsList(ratings));
 console.log("Avg Rating: " + avgRating);
+promptForUserReview(teacher, ratings);
+console.log("Ratings: " + formatRatingsList(ratings));
 
 // STUDENT
 var name = "Charlie Brown";
