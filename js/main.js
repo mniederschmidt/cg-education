@@ -42,8 +42,9 @@ function addTeacherRating(ratings, newRating) {
 
 function promptForUserReview(teacher, ratings) {
   var validRating = false;
+  var result = "";
 
-  while(!validRating) {
+  while(!validRating && result !== null) {
     result = window.prompt("We would like for you to review . Please enter a rating between 0.0 - 5.0?");
     if(result && !isNaN(result) && result >= 0 && result <= 5) {
       rating = Number(result);
