@@ -50,7 +50,7 @@ function promptForUserReview(teacher, ratings) {
       rating = Number(result);
       validRating = true;
       addTeacherRating(ratings, rating);
-      alert("Thanks for your review! " + teacher + "'s average rating is now " + getAverageRating(ratings)+ ".")
+      alert("Thanks for your review! " + teacher + "'s average rating is now " + getAverageRating(ratings)+ ".");
     }
   }
 }
@@ -60,8 +60,7 @@ console.log("Teacher: " + teacher);
 console.log("Department: " + dept);
 console.log("Ratings: " + formatRatingsList(ratings));
 console.log("Avg Rating: " + avgRating);
-promptForUserReview(teacher, ratings);
-console.log("Ratings: " + formatRatingsList(ratings));
+// promptForUserReview(teacher, ratings);
 
 // STUDENT
 var name = "Charlie Brown";
@@ -77,10 +76,52 @@ console.log("GPA: " + GPA.toFixed(1));
 // COURSE
 var dept = "Physics";
 var courseName = "Astronomy";
-var courseTeacher = "Sally Brown";
-var semester = "Fall 2018";
+var course = [dept, courseName];
 
-console.log("Department: " + dept);
-console.log("Course Name: " + courseName);
-console.log("Teacher: " + courseTeacher);
-console.log("Semester: " + semester);
+console.log("Department: " + course[0]);
+console.log("Course Name: " + course[1]);
+
+var courses = [
+  ["Physics", "Astronomy"],
+  ["History", "European Civilization"],
+  ["Math", "Geometry"],
+  ["Literature", "American Classics"],
+  ["Music", "Saxophone"],
+  ["Music", "Guitar"]
+];
+
+function filterByDept(courses, department) {
+  filteredCourses = [];
+  for (course in courses) {
+    if(courses[course][0] === department) {
+      filteredCourses.push(courses[course]);
+    }
+  }
+  return filteredCourses;
+}
+
+console.log("Result of filtering by Music: " , filterByDept(courses, "Music"));
+
+function promptForDepartment() {
+  var validDept = false;
+  var result = "";
+
+  while(!validDept && result !== null) {
+    result = window.prompt("What department would you like to search for courses?");
+    if(result) {
+      validDept = true;
+      filteredCourses = filterByDept(courses, result);
+      if(filteredCourses.length > 0) {
+        var formattedCourses = "";
+        for (course in filteredCourses) {
+          formattedCourses += (filteredCourses[course][1] + "\n");
+        }
+        alert("Courses in " + result + "Department:\n\n" + formattedCourses);
+      } else {
+        alert("There are no courses for the " + result + " department.");
+      }
+    }
+  }
+}
+
+promptForDepartment();
