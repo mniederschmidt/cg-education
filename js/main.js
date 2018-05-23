@@ -12,55 +12,52 @@ function openSection(event, sectionName) {
 }
 
 // TEACHER
-var teacher = "Sally Brown";
-var dept = "Physics";
-var ratings = [3.4, 5.0, 4.2];
+var teacher = {
+  name: "Sally Brown",
+  dept: "Physics",
+  ratings: [3.4, 5.0, 4.2],
 
-function getAverageRating(ratings) {
-  var sum = 0;
-  for (var i = 0; i < ratings.length; i++) {
-    sum += ratings[i];
-  }
-  return (sum / ratings.length).toFixed(1);
-}
-
-function formatRatingsList(ratings) {
-  var list = "";
-  for (var i = 0; i < ratings.length; i++) {
-    list += ratings[i].toFixed(1);
-    if (i != (ratings.length - 1)) {
-      list += ", ";
+  getAverageRating: function() {
+    var sum = 0;
+    for (var i = 0; i < this.ratings.length; i++) {
+      sum += this.ratings[i];
     }
+    return (sum / this.ratings.length).toFixed(1);
+  },
+
+  getFormattedRatingsList: function() {
+    var list = "";
+    for (var i = 0; i < this.ratings.length; i++) {
+      list += this.ratings[i].toFixed(1);
+      if (i != (this.ratings.length - 1)) {
+        list += ", ";
+      }
+    }
+    return list;
+  },
+
+  addRating: function(newRating) {
+    this.ratings.push(newRating);
   }
-  return list;
-}
+};
 
-function addTeacherRating(ratings, newRating) {
-  ratings.push(newRating);
-  return ratings;
-}
-
-function promptForUserReview(teacher, ratings) {
+function promptForUserReview(teacher) {
   var validRating = false;
   var result = "";
 
   while(!validRating && result !== null) {
-    result = window.prompt("We would like for you to review . Please enter a rating between 0.0 - 5.0?");
+    result = window.prompt("We would like for you to review " + teacher.name + ". Please enter a rating between 0.0 - 5.0?");
     if(result && !isNaN(result) && result >= 0 && result <= 5) {
       rating = Number(result);
       validRating = true;
-      addTeacherRating(ratings, rating);
-      alert("Thanks for your review! " + teacher + "'s average rating is now " + getAverageRating(ratings)+ ".");
+      teacher.addRating(rating);
+      alert("Thanks for your review! " + teacher.name + "'s average rating is now " + teacher.getAverageRating()+ ".");
     }
   }
 }
 
-var avgRating = getAverageRating(ratings);
-// console.log("Teacher: " + teacher);
-// console.log("Department: " + dept);
-// console.log("Ratings: " + formatRatingsList(ratings));
-// console.log("Avg Rating: " + avgRating);
-// promptForUserReview(teacher, ratings);
+var sally = teacher;
+promptForUserReview(sally);
 
 // STUDENT
 var name = "Charlie Brown";
@@ -165,7 +162,7 @@ function promptForGraduationInfo() {
   }
 }
 
-promptForGraduationInfo();
+// promptForGraduationInfo();
 
 // COURSE
 var dept = "Physics";
