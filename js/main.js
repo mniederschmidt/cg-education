@@ -81,11 +81,11 @@ function promptForGraduationYear() {
   var result = "";
   var attempts = 0;
   var promptMessage = "Please enter your college graduation year";
-  var additionalPromptMessage = `.\nCollege graduation year should be a number between ${currentYear} and ${currentYear + 7}.`;
+  var additionalPromptMessage = `.\nCollege graduation year should be numeric and ${currentYear} or later.`;
 
   while(!validResponse && result !== null) {
     result = window.prompt(promptMessage);
-    if(result && !isNaN(result) && result >= currentYear && result < currentYear + 8) {
+    if(result && !isNaN(result) && result >= currentYear) {
       collegeGraduationYear = Number(result);
       validResponse = true;
     } else if(attempts === 0) {
@@ -122,6 +122,10 @@ var welcomeHighSchoolStudent = function(level) {
   alert(`You're still a ${level} in high school!`);
 }
 
+var welcomeYoungerStudent = function() {
+  alert("Whoa, college is some years away...");
+}
+
 function welcomeStudentsByGraduatingClass(gradMonth, gradYear, welcome) {
   var yearsToGraduation = 0;
   if(gradYear > currentYear + 3) {
@@ -138,7 +142,7 @@ function welcomeStudentsByGraduatingClass(gradMonth, gradYear, welcome) {
       welcome("Junior");
       break;
     case 2:
-      welcome("Saxophone");
+      welcome("Sophomore");
       break;
     case 3:
       welcome("Freshman");
@@ -150,7 +154,9 @@ function promptForGraduationInfo() {
   promptForGraduationYear();
   promptForGraduationMonth();
 
-  if(collegeGraduationYear > currentYear + 3) {
+  if(collegeGraduationYear > currentYear + 7) {
+    welcomeYoungerStudent();
+  } else if(collegeGraduationYear > currentYear + 3) {
     // console.log("You are in high school.");
     welcomeStudentsByGraduatingClass(collegeGraduationMonth, collegeGraduationYear, welcomeHighSchoolStudent);
   } else {
