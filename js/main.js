@@ -17,6 +17,12 @@ var teacher = {
   dept: "Physics",
   ratings: [3.4, 5.0, 4.2],
 
+  Teacher: function(name, dept) {
+    this.name = name;
+    this.dept = dept;
+    this.ratings = [];
+  },
+
   getAverageRating: function() {
     var sum = 0;
     for (var i = 0; i < this.ratings.length; i++) {
@@ -56,8 +62,8 @@ function promptForUserReview(teacher) {
   }
 }
 
-var sally = teacher;
-promptForUserReview(sally);
+// var sally = teacher;
+// promptForUserReview(sally);
 
 // STUDENT
 var name = "Charlie Brown";
@@ -165,33 +171,38 @@ function promptForGraduationInfo() {
 // promptForGraduationInfo();
 
 // COURSE
-var dept = "Physics";
-var courseName = "Astronomy";
-var course = [dept, courseName];
+var course = {
+  name: "Astronomy",
+  dept: "Physics",
+  teacher: "Sally Brown",
+  semester: "Fall 2018"
+};
+
+  // var course = [dept, courseName];
 
 // console.log("Department: " + course[0]);
 // console.log("Course Name: " + course[1]);
 
 var courses = [
-  ["Physics", "Astronomy"],
-  ["History", "European Civilization"],
-  ["Math", "Geometry"],
-  ["Literature", "American Classics"],
-  ["Music", "Saxophone"],
-  ["Music", "Guitar"]
+  {dept: "Physics", name: "Astronomy"},
+  {dept: "History", name: "European Civilization"},
+  {dept: "Math", name: "Geometry"},
+  {dept: "Literature", name: "American Classics"},
+  {dept: "Music", name: "Saxophone"},
+  {dept: "Music", name: "Guitar"}
 ];
 
-function filterByDept(courses, department) {
+function filterByDept(department) {
   filteredCourses = [];
   for (course in courses) {
-    if(courses[course][0] === department) {
+    if(courses[course].dept === department) {
       filteredCourses.push(courses[course]);
     }
   }
   return filteredCourses;
 }
 
-// console.log("Result of filtering by Music: " , filterByDept(courses, "Music"));
+// console.log("Result of filtering by Music: " , filterByDept("Music"));
 
 function promptForDepartment() {
   var validDept = false;
@@ -201,11 +212,11 @@ function promptForDepartment() {
     result = window.prompt("What department would you like to search for courses?");
     if(result) {
       validDept = true;
-      filteredCourses = filterByDept(courses, result);
+      filteredCourses = filterByDept(result);
       if(filteredCourses.length > 0) {
         var formattedCourses = "";
         for (course in filteredCourses) {
-          formattedCourses += (filteredCourses[course][1] + "\n");
+          formattedCourses += (filteredCourses[course].name + "\n");
         }
         alert("Courses in " + result + "Department:\n\n" + formattedCourses);
       } else {
@@ -215,4 +226,4 @@ function promptForDepartment() {
   }
 }
 
-// promptForDepartment();
+promptForDepartment();
