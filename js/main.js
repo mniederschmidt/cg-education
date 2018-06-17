@@ -1,4 +1,4 @@
-console.log("This file is linked");
+// console.log("This file is linked");
 
 // Display section when its link is clicked
 function openSection(event, sectionName) {
@@ -12,17 +12,16 @@ function openSection(event, sectionName) {
 }
 
 // TEACHER
-var teacher = {
-  name: "Sally Brown",
-  dept: "Physics",
-  ratings: [3.4, 5.0, 4.2],
+function Teacher(name, dept) {
+  this.name = name;
+  this.dept = dept;
+  this.ratings = [];
+}
 
-  Teacher: function(name, dept) {
-    this.name = name;
-    this.dept = dept;
-    this.ratings = [];
+Teacher.prototype = {
+  addRating: function(newRating) {
+    this.ratings.push(newRating);
   },
-
   getAverageRating: function() {
     var sum = 0;
     for (var i = 0; i < this.ratings.length; i++) {
@@ -30,7 +29,6 @@ var teacher = {
     }
     return (sum / this.ratings.length).toFixed(1);
   },
-
   getFormattedRatingsList: function() {
     var list = "";
     for (var i = 0; i < this.ratings.length; i++) {
@@ -40,12 +38,16 @@ var teacher = {
       }
     }
     return list;
-  },
-
-  addRating: function(newRating) {
-    this.ratings.push(newRating);
   }
 };
+
+var sally = new Teacher("Sally Brown", "Physics");
+var marvin = new Teacher("Marvin Hill", "History");
+var lucy = new Teacher("Lucy Van Pelt", "Math");
+var patty = new Teacher("Peppermint Patty", "Literature");
+var sherman = new Teacher("Sherman Smith", "Music");
+console.log(sally.name);
+console.log(sally.dept);
 
 function promptForUserReview(teacher) {
   var validRating = false;
@@ -63,7 +65,10 @@ function promptForUserReview(teacher) {
 }
 
 // var sally = teacher;
-// promptForUserReview(sally);
+promptForUserReview(sally);
+promptForUserReview(sally);
+console.log("Sally's ratings: " + sally.getFormattedRatingsList());
+console.log("Sally's average rating: " + sally.getAverageRating());
 
 // STUDENT
 var name = "Charlie Brown";
@@ -174,7 +179,7 @@ function promptForGraduationInfo() {
 var course = {
   name: "Astronomy",
   dept: "Physics",
-  teacher: "Sally Brown",
+  teacher: Teacher,
   semester: "Fall 2018"
 };
 
@@ -182,6 +187,13 @@ var course = {
 
 // console.log("Department: " + course[0]);
 // console.log("Course Name: " + course[1]);
+// console.log("Department: " + course["dept"]);
+// console.log("Course Name: " + course["name"]);
+//
+// Testing after made teacher property an object
+// console.log("teacher name: " + teacher.name);
+// console.log("course name: " + course.dept + " " + course.name);
+// console.log("course teacher name: " + course.teacher.name);
 
 var courses = [
   {dept: "Physics", name: "Astronomy"},
@@ -226,4 +238,4 @@ function promptForDepartment() {
   }
 }
 
-promptForDepartment();
+// promptForDepartment();
