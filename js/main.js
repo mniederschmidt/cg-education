@@ -46,8 +46,8 @@ var marvin = new Teacher("Marvin Hill", "History");
 var lucy = new Teacher("Lucy Van Pelt", "Math");
 var patty = new Teacher("Peppermint Patty", "Literature");
 var sherman = new Teacher("Sherman Smith", "Music");
-console.log(sally.name);
-console.log(sally.dept);
+// console.log(sally.name);
+// console.log(sally.dept);
 
 function promptForUserReview(teacher) {
   var validRating = false;
@@ -65,10 +65,10 @@ function promptForUserReview(teacher) {
 }
 
 // var sally = teacher;
-promptForUserReview(sally);
-promptForUserReview(sally);
-console.log("Sally's ratings: " + sally.getFormattedRatingsList());
-console.log("Sally's average rating: " + sally.getAverageRating());
+// promptForUserReview(sally);
+// promptForUserReview(sally);
+// console.log("Sally's ratings: " + sally.getFormattedRatingsList());
+// console.log("Sally's average rating: " + sally.getAverageRating());
 
 // STUDENT
 var name = "Charlie Brown";
@@ -176,45 +176,45 @@ function promptForGraduationInfo() {
 // promptForGraduationInfo();
 
 // COURSE
-var course = {
-  name: "Astronomy",
-  dept: "Physics",
-  teacher: Teacher,
-  semester: "Fall 2018"
-};
+function Course(name, dept, teacher, semester) {
+  this.name = name;
+  this.dept = dept;
+  this.teacher = teacher;
+  this.semester = semester;
+}
 
-  // var course = [dept, courseName];
-
-// console.log("Department: " + course[0]);
-// console.log("Course Name: " + course[1]);
-// console.log("Department: " + course["dept"]);
-// console.log("Course Name: " + course["name"]);
-//
 // Testing after made teacher property an object
 // console.log("teacher name: " + teacher.name);
 // console.log("course name: " + course.dept + " " + course.name);
 // console.log("course teacher name: " + course.teacher.name);
 
-var courses = [
-  {dept: "Physics", name: "Astronomy"},
-  {dept: "History", name: "European Civilization"},
-  {dept: "Math", name: "Geometry"},
-  {dept: "Literature", name: "American Classics"},
-  {dept: "Music", name: "Saxophone"},
-  {dept: "Music", name: "Guitar"}
-];
-
-function filterByDept(department) {
-  filteredCourses = [];
-  for (course in courses) {
-    if(courses[course].dept === department) {
-      filteredCourses.push(courses[course]);
-    }
-  }
-  return filteredCourses;
+function Courses(courses) {
+  this.courses = courses;
 }
 
-// console.log("Result of filtering by Music: " , filterByDept("Music"));
+Courses.prototype = {
+  filterByDept: function(department) {
+    var filteredCourses = [];
+    for (course in this.courses) {
+      if(this.courses[course].dept === department) {
+        filteredCourses.push(this.courses[course]);
+      }
+    }
+    return filteredCourses;
+  }
+}
+
+var courses = [
+  new Course("Astronomy", "Physics", sally, "Fall 2018"),
+  new Course("European Civilization", "History", marvin, "Fall 2018"),
+  new Course("Geometry", "Math", lucy, "Fall 2018"),
+  new Course("American Classics", "Literature", patty, "Fall 2018"),
+  new Course("Saxophone", "Music", sherman, "Fall 2018"),
+  new Course("Guitar", "Music", sherman, "Fall 2018")
+];
+
+var cgCourses = new Courses(courses);
+console.log("Result of filtering by Music: " , cgCourses.filterByDept("Music"));
 
 function promptForDepartment() {
   var validDept = false;
@@ -224,7 +224,7 @@ function promptForDepartment() {
     result = window.prompt("What department would you like to search for courses?");
     if(result) {
       validDept = true;
-      filteredCourses = filterByDept(result);
+      var filteredCourses = cgCourses.filterByDept(result);
       if(filteredCourses.length > 0) {
         var formattedCourses = "";
         for (course in filteredCourses) {
@@ -238,4 +238,4 @@ function promptForDepartment() {
   }
 }
 
-// promptForDepartment();
+promptForDepartment();
