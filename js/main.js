@@ -70,11 +70,115 @@ function promptForUserReview(teacher) {
 // console.log("Sally's ratings: " + sally.getFormattedRatingsList());
 // console.log("Sally's average rating: " + sally.getAverageRating());
 
+// COURSE
+function Course(name, dept, teacher, semester) {
+  this.name = name;
+  this.dept = dept;
+  this.teacher = teacher;
+  this.semester = semester;
+}
+
+// Testing after made teacher property an object
+// console.log("teacher name: " + teacher.name);
+// console.log("course name: " + course.dept + " " + course.name);
+// console.log("course teacher name: " + course.teacher.name);
+
+function Courses(courses) {
+  this.courses = courses;
+}
+
+Courses.prototype = {
+  getCourses: function() {
+    return this.courses;
+  },
+  filterByDept: function(department) {
+    var filteredCourses = [];
+    for (course in this.courses) {
+      if(this.courses[course].dept === department) {
+        filteredCourses.push(this.courses[course]);
+      }
+    }
+    return filteredCourses;
+  }
+}
+
+var courses = [
+  new Course("Astronomy", "Physics", sally, "Fall 2018"),
+  new Course("European Civilization", "History", marvin, "Fall 2018"),
+  new Course("Geometry", "Math", lucy, "Fall 2018"),
+  new Course("American Classics", "Literature", patty, "Fall 2018"),
+  new Course("Saxophone", "Music", sherman, "Fall 2018"),
+  new Course("Guitar", "Music", sherman, "Fall 2018")
+];
+
+var cgCourses = new Courses(courses);
+// console.log("Result of filtering by Music: " , cgCourses.filterByDept("Music"));
+
+function promptForDepartment() {
+  var validDept = false;
+  var result = "";
+
+  while(!validDept && result !== null) {
+    result = window.prompt("What department would you like to search for courses?");
+    if(result) {
+      validDept = true;
+      var filteredCourses = cgCourses.filterByDept(result);
+      if(filteredCourses.length > 0) {
+        var formattedCourses = "";
+        for (course in filteredCourses) {
+          formattedCourses += (filteredCourses[course].name + "\n");
+        }
+        alert("Courses in " + result + "Department:\n\n" + formattedCourses);
+      } else {
+        alert("There are no courses for the " + result + " department.");
+      }
+    }
+  }
+}
+
+// promptForDepartment();
+
 // STUDENT
-var name = "Charlie Brown";
-var major = "Math";
-var email = "charlie@cg.edu";
-var GPA = 4.0;
+function Student(name, major, email, gradePointAverage) {
+  this.name = name;
+  this.major = major;
+  this.email = email;
+  this.gpa = gradePointAverage;
+  this.courses = [];
+}
+
+Student.prototype = {
+  addCourse: function(course) {
+    this.courses.push(course);
+  },
+  dropCourse: function(courseName) {
+    for (course in this.courses) {
+      if(this.courses[course].name === courseName) {
+        this.courses.pop(this.courses[course]);
+      }
+    }
+  },
+  changeMajor: function(newMajor) {
+    this.major = newMajor;
+  }
+}
+
+var charlie = new Student("Charlie Brown", "Math", "charlie@cg.edu", 4.0);
+
+var students = [
+  new Student("Violet Gray", "Math", "violet@cg.edu", 4.0),
+  new Student("Franklin Armstrong", "Music", "franklin@cg.edu", 4.0),
+  new Student("Linus Van Pelt", "Literature", "linus@cg.edu", 4.0),
+  new Student("Woodstock", "Philosophy", "woodstock@cg.edu", 4.0)
+];
+
+students.push(charlie);
+
+console.log("Charlie Brown (Student): ", charlie);
+console.log("Adding Course: " , cgCourses.courses[2]);
+charlie.addCourse(cgCourses.courses[2]);
+console.log("Now they are taking... \n" , charlie.courses);
+
 var collegeGraduationYear = null;
 var collegeGraduationMonth = null;
 var currentYear = new Date().getFullYear();
@@ -174,68 +278,3 @@ function promptForGraduationInfo() {
 }
 
 // promptForGraduationInfo();
-
-// COURSE
-function Course(name, dept, teacher, semester) {
-  this.name = name;
-  this.dept = dept;
-  this.teacher = teacher;
-  this.semester = semester;
-}
-
-// Testing after made teacher property an object
-// console.log("teacher name: " + teacher.name);
-// console.log("course name: " + course.dept + " " + course.name);
-// console.log("course teacher name: " + course.teacher.name);
-
-function Courses(courses) {
-  this.courses = courses;
-}
-
-Courses.prototype = {
-  filterByDept: function(department) {
-    var filteredCourses = [];
-    for (course in this.courses) {
-      if(this.courses[course].dept === department) {
-        filteredCourses.push(this.courses[course]);
-      }
-    }
-    return filteredCourses;
-  }
-}
-
-var courses = [
-  new Course("Astronomy", "Physics", sally, "Fall 2018"),
-  new Course("European Civilization", "History", marvin, "Fall 2018"),
-  new Course("Geometry", "Math", lucy, "Fall 2018"),
-  new Course("American Classics", "Literature", patty, "Fall 2018"),
-  new Course("Saxophone", "Music", sherman, "Fall 2018"),
-  new Course("Guitar", "Music", sherman, "Fall 2018")
-];
-
-var cgCourses = new Courses(courses);
-console.log("Result of filtering by Music: " , cgCourses.filterByDept("Music"));
-
-function promptForDepartment() {
-  var validDept = false;
-  var result = "";
-
-  while(!validDept && result !== null) {
-    result = window.prompt("What department would you like to search for courses?");
-    if(result) {
-      validDept = true;
-      var filteredCourses = cgCourses.filterByDept(result);
-      if(filteredCourses.length > 0) {
-        var formattedCourses = "";
-        for (course in filteredCourses) {
-          formattedCourses += (filteredCourses[course].name + "\n");
-        }
-        alert("Courses in " + result + "Department:\n\n" + formattedCourses);
-      } else {
-        alert("There are no courses for the " + result + " department.");
-      }
-    }
-  }
-}
-
-promptForDepartment();
